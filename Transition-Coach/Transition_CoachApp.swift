@@ -12,7 +12,8 @@ import SwiftData
 struct Transition_CoachApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Routine.self,
+            RoutineStep.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
