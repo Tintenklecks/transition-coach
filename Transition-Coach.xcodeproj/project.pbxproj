@@ -1,0 +1,1046 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		825DB4CD300B90A800DC1644 /* Transition Watch Coach Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 825DB4AD300B90A000DC1644 /* Transition Watch Coach Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		825DB48C300B906600DC1644 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 825DB472300B906400DC1644 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 825DB479300B906400DC1644;
+			remoteInfo = "Transition-Coach";
+		};
+		825DB496300B906600DC1644 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 825DB472300B906400DC1644 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 825DB479300B906400DC1644;
+			remoteInfo = "Transition-Coach";
+		};
+		825DB4BA300B90A700DC1644 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 825DB472300B906400DC1644 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 825DB4AC300B90A000DC1644;
+			remoteInfo = "Transition Watch Coach Watch App";
+		};
+		825DB4C4300B90A800DC1644 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 825DB472300B906400DC1644 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 825DB4AC300B90A000DC1644;
+			remoteInfo = "Transition Watch Coach Watch App";
+		};
+		825DB4CB300B90A800DC1644 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 825DB472300B906400DC1644 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 825DB4AC300B90A000DC1644;
+			remoteInfo = "Transition Watch Coach Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		825DB4D1300B90A800DC1644 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				825DB4CD300B90A800DC1644 /* Transition Watch Coach Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		825DB47A300B906400DC1644 /* Transition-Coach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Transition-Coach.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		825DB48B300B906600DC1644 /* Transition-CoachTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Transition-CoachTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		825DB495300B906600DC1644 /* Transition-CoachUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Transition-CoachUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		825DB4AD300B90A000DC1644 /* Transition Watch Coach Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Transition Watch Coach Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		825DB4B9300B90A700DC1644 /* Transition Watch Coach Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Transition Watch Coach Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		825DB4C3300B90A700DC1644 /* Transition Watch Coach Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Transition Watch Coach Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		825DB49D300B906600DC1644 /* Exceptions for "Transition-Coach" folder in "Transition-Coach" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 825DB479300B906400DC1644 /* Transition-Coach */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		825DB47C300B906400DC1644 /* Transition-Coach */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				825DB49D300B906600DC1644 /* Exceptions for "Transition-Coach" folder in "Transition-Coach" target */,
+			);
+			path = "Transition-Coach";
+			sourceTree = "<group>";
+		};
+		825DB48E300B906600DC1644 /* Transition-CoachTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Transition-CoachTests";
+			sourceTree = "<group>";
+		};
+		825DB498300B906600DC1644 /* Transition-CoachUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Transition-CoachUITests";
+			sourceTree = "<group>";
+		};
+		825DB4AE300B90A100DC1644 /* Transition Watch Coach Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Transition Watch Coach Watch App";
+			sourceTree = "<group>";
+		};
+		825DB4BC300B90A700DC1644 /* Transition Watch Coach Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Transition Watch Coach Watch AppTests";
+			sourceTree = "<group>";
+		};
+		825DB4C6300B90A800DC1644 /* Transition Watch Coach Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Transition Watch Coach Watch AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		825DB477300B906400DC1644 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB488300B906600DC1644 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB492300B906600DC1644 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB4AA300B90A000DC1644 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB4B6300B90A700DC1644 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB4C0300B90A700DC1644 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		825DB471300B906400DC1644 = {
+			isa = PBXGroup;
+			children = (
+				825DB47C300B906400DC1644 /* Transition-Coach */,
+				825DB48E300B906600DC1644 /* Transition-CoachTests */,
+				825DB498300B906600DC1644 /* Transition-CoachUITests */,
+				825DB4AE300B90A100DC1644 /* Transition Watch Coach Watch App */,
+				825DB4BC300B90A700DC1644 /* Transition Watch Coach Watch AppTests */,
+				825DB4C6300B90A800DC1644 /* Transition Watch Coach Watch AppUITests */,
+				825DB47B300B906400DC1644 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		825DB47B300B906400DC1644 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				825DB47A300B906400DC1644 /* Transition-Coach.app */,
+				825DB48B300B906600DC1644 /* Transition-CoachTests.xctest */,
+				825DB495300B906600DC1644 /* Transition-CoachUITests.xctest */,
+				825DB4AD300B90A000DC1644 /* Transition Watch Coach Watch App.app */,
+				825DB4B9300B90A700DC1644 /* Transition Watch Coach Watch AppTests.xctest */,
+				825DB4C3300B90A700DC1644 /* Transition Watch Coach Watch AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		825DB479300B906400DC1644 /* Transition-Coach */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 825DB49E300B906600DC1644 /* Build configuration list for PBXNativeTarget "Transition-Coach" */;
+			buildPhases = (
+				825DB476300B906400DC1644 /* Sources */,
+				825DB477300B906400DC1644 /* Frameworks */,
+				825DB478300B906400DC1644 /* Resources */,
+				825DB4D1300B90A800DC1644 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				825DB4CC300B90A800DC1644 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				825DB47C300B906400DC1644 /* Transition-Coach */,
+			);
+			name = "Transition-Coach";
+			packageProductDependencies = (
+			);
+			productName = "Transition-Coach";
+			productReference = 825DB47A300B906400DC1644 /* Transition-Coach.app */;
+			productType = "com.apple.product-type.application";
+		};
+		825DB48A300B906600DC1644 /* Transition-CoachTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 825DB4A3300B906600DC1644 /* Build configuration list for PBXNativeTarget "Transition-CoachTests" */;
+			buildPhases = (
+				825DB487300B906600DC1644 /* Sources */,
+				825DB488300B906600DC1644 /* Frameworks */,
+				825DB489300B906600DC1644 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				825DB48D300B906600DC1644 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				825DB48E300B906600DC1644 /* Transition-CoachTests */,
+			);
+			name = "Transition-CoachTests";
+			packageProductDependencies = (
+			);
+			productName = "Transition-CoachTests";
+			productReference = 825DB48B300B906600DC1644 /* Transition-CoachTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		825DB494300B906600DC1644 /* Transition-CoachUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 825DB4A6300B906600DC1644 /* Build configuration list for PBXNativeTarget "Transition-CoachUITests" */;
+			buildPhases = (
+				825DB491300B906600DC1644 /* Sources */,
+				825DB492300B906600DC1644 /* Frameworks */,
+				825DB493300B906600DC1644 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				825DB497300B906600DC1644 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				825DB498300B906600DC1644 /* Transition-CoachUITests */,
+			);
+			name = "Transition-CoachUITests";
+			packageProductDependencies = (
+			);
+			productName = "Transition-CoachUITests";
+			productReference = 825DB495300B906600DC1644 /* Transition-CoachUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		825DB4AC300B90A000DC1644 /* Transition Watch Coach Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 825DB4CE300B90A800DC1644 /* Build configuration list for PBXNativeTarget "Transition Watch Coach Watch App" */;
+			buildPhases = (
+				825DB4A9300B90A000DC1644 /* Sources */,
+				825DB4AA300B90A000DC1644 /* Frameworks */,
+				825DB4AB300B90A000DC1644 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				825DB4AE300B90A100DC1644 /* Transition Watch Coach Watch App */,
+			);
+			name = "Transition Watch Coach Watch App";
+			packageProductDependencies = (
+			);
+			productName = "Transition Watch Coach Watch App";
+			productReference = 825DB4AD300B90A000DC1644 /* Transition Watch Coach Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		825DB4B8300B90A700DC1644 /* Transition Watch Coach Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 825DB4D2300B90A800DC1644 /* Build configuration list for PBXNativeTarget "Transition Watch Coach Watch AppTests" */;
+			buildPhases = (
+				825DB4B5300B90A700DC1644 /* Sources */,
+				825DB4B6300B90A700DC1644 /* Frameworks */,
+				825DB4B7300B90A700DC1644 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				825DB4BB300B90A700DC1644 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				825DB4BC300B90A700DC1644 /* Transition Watch Coach Watch AppTests */,
+			);
+			name = "Transition Watch Coach Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "Transition Watch Coach Watch AppTests";
+			productReference = 825DB4B9300B90A700DC1644 /* Transition Watch Coach Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		825DB4C2300B90A700DC1644 /* Transition Watch Coach Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 825DB4D5300B90A800DC1644 /* Build configuration list for PBXNativeTarget "Transition Watch Coach Watch AppUITests" */;
+			buildPhases = (
+				825DB4BF300B90A700DC1644 /* Sources */,
+				825DB4C0300B90A700DC1644 /* Frameworks */,
+				825DB4C1300B90A700DC1644 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				825DB4C5300B90A800DC1644 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				825DB4C6300B90A800DC1644 /* Transition Watch Coach Watch AppUITests */,
+			);
+			name = "Transition Watch Coach Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "Transition Watch Coach Watch AppUITests";
+			productReference = 825DB4C3300B90A700DC1644 /* Transition Watch Coach Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		825DB472300B906400DC1644 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					825DB479300B906400DC1644 = {
+						CreatedOnToolsVersion = 26.6;
+					};
+					825DB48A300B906600DC1644 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = 825DB479300B906400DC1644;
+					};
+					825DB494300B906600DC1644 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = 825DB479300B906400DC1644;
+					};
+					825DB4AC300B90A000DC1644 = {
+						CreatedOnToolsVersion = 26.6;
+					};
+					825DB4B8300B90A700DC1644 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = 825DB4AC300B90A000DC1644;
+					};
+					825DB4C2300B90A700DC1644 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = 825DB4AC300B90A000DC1644;
+					};
+				};
+			};
+			buildConfigurationList = 825DB475300B906400DC1644 /* Build configuration list for PBXProject "Transition-Coach" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 825DB471300B906400DC1644;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 825DB47B300B906400DC1644 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				825DB479300B906400DC1644 /* Transition-Coach */,
+				825DB48A300B906600DC1644 /* Transition-CoachTests */,
+				825DB494300B906600DC1644 /* Transition-CoachUITests */,
+				825DB4AC300B90A000DC1644 /* Transition Watch Coach Watch App */,
+				825DB4B8300B90A700DC1644 /* Transition Watch Coach Watch AppTests */,
+				825DB4C2300B90A700DC1644 /* Transition Watch Coach Watch AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		825DB478300B906400DC1644 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB489300B906600DC1644 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB493300B906600DC1644 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB4AB300B90A000DC1644 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB4B7300B90A700DC1644 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB4C1300B90A700DC1644 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		825DB476300B906400DC1644 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB487300B906600DC1644 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB491300B906600DC1644 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB4A9300B90A000DC1644 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB4B5300B90A700DC1644 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825DB4BF300B90A700DC1644 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		825DB48D300B906600DC1644 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 825DB479300B906400DC1644 /* Transition-Coach */;
+			targetProxy = 825DB48C300B906600DC1644 /* PBXContainerItemProxy */;
+		};
+		825DB497300B906600DC1644 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 825DB479300B906400DC1644 /* Transition-Coach */;
+			targetProxy = 825DB496300B906600DC1644 /* PBXContainerItemProxy */;
+		};
+		825DB4BB300B90A700DC1644 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 825DB4AC300B90A000DC1644 /* Transition Watch Coach Watch App */;
+			targetProxy = 825DB4BA300B90A700DC1644 /* PBXContainerItemProxy */;
+		};
+		825DB4C5300B90A800DC1644 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 825DB4AC300B90A000DC1644 /* Transition Watch Coach Watch App */;
+			targetProxy = 825DB4C4300B90A800DC1644 /* PBXContainerItemProxy */;
+		};
+		825DB4CC300B90A800DC1644 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 825DB4AC300B90A000DC1644 /* Transition Watch Coach Watch App */;
+			targetProxy = 825DB4CB300B90A800DC1644 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		825DB49F300B906600DC1644 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Transition-Coach/Info.plist";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-Coach";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		825DB4A0300B906600DC1644 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Transition-Coach/Info.plist";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-Coach";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+		825DB4A1300B906600DC1644 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		825DB4A2300B906600DC1644 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = KT43342F9W;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		825DB4A4300B906600DC1644 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-CoachTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transition-Coach.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Transition-Coach";
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		825DB4A5300B906600DC1644 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-CoachTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transition-Coach.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Transition-Coach";
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+		825DB4A7300B906600DC1644 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-CoachUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = "Transition-Coach";
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		825DB4A8300B906600DC1644 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-CoachUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = "Transition-Coach";
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+		825DB4CF300B90A800DC1644 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Transition Watch Coach";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "de.IBMobile.Transition-Coach";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-Coach.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		825DB4D0300B90A800DC1644 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Transition Watch Coach";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "de.IBMobile.Transition-Coach";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-Coach.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+		825DB4D3300B90A800DC1644 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-Watch-Coach-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transition Watch Coach Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Transition Watch Coach Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		825DB4D4300B90A800DC1644 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-Watch-Coach-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transition Watch Coach Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Transition Watch Coach Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+		825DB4D6300B90A800DC1644 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-Watch-Coach-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Transition Watch Coach Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		825DB4D7300B90A800DC1644 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-Watch-Coach-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Transition Watch Coach Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		825DB475300B906400DC1644 /* Build configuration list for PBXProject "Transition-Coach" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825DB4A1300B906600DC1644 /* Debug */,
+				825DB4A2300B906600DC1644 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		825DB49E300B906600DC1644 /* Build configuration list for PBXNativeTarget "Transition-Coach" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825DB49F300B906600DC1644 /* Debug */,
+				825DB4A0300B906600DC1644 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		825DB4A3300B906600DC1644 /* Build configuration list for PBXNativeTarget "Transition-CoachTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825DB4A4300B906600DC1644 /* Debug */,
+				825DB4A5300B906600DC1644 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		825DB4A6300B906600DC1644 /* Build configuration list for PBXNativeTarget "Transition-CoachUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825DB4A7300B906600DC1644 /* Debug */,
+				825DB4A8300B906600DC1644 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		825DB4CE300B90A800DC1644 /* Build configuration list for PBXNativeTarget "Transition Watch Coach Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825DB4CF300B90A800DC1644 /* Debug */,
+				825DB4D0300B90A800DC1644 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		825DB4D2300B90A800DC1644 /* Build configuration list for PBXNativeTarget "Transition Watch Coach Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825DB4D3300B90A800DC1644 /* Debug */,
+				825DB4D4300B90A800DC1644 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		825DB4D5300B90A800DC1644 /* Build configuration list for PBXNativeTarget "Transition Watch Coach Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825DB4D6300B90A800DC1644 /* Debug */,
+				825DB4D7300B90A800DC1644 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 825DB472300B906400DC1644 /* Project object */;
+}
