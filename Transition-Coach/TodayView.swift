@@ -1,13 +1,17 @@
 import SwiftUI
 
 struct TodayView: View {
-    let routine: Routine?
+    let selection: ActiveRoutineSelection?
     @Bindable var sessionStore: RoutineSessionStore
 
     var body: some View {
         Group {
-            if let routine {
-                RoutineTodayContent(routine: routine, sessionStore: sessionStore)
+            if let selection {
+                RoutineTodayContent(
+                    routine: selection.routine,
+                    day: selection.day,
+                    sessionStore: sessionStore
+                )
             } else {
                 NoRoutineView()
             }
@@ -21,13 +25,38 @@ struct TodayView: View {
 /// countdown, one action. This is the core interaction, not a status chip.
 private struct RoutineTodayContent: View {
     let routine: Routine
+    /// The calendar day this screen is planning for — today while the routine is
+    /// still actionable, otherwise its next non-skipped day. Everything below is
+    /// scheduled against this, never against "now".
+    let day: Date
     @Bindable var sessionStore: RoutineSessionStore
     @State private var showsTimeline = false
 
     private static let extensionMinutes = 2
 
+    private var isRenderingToday: Bool {
+        Calendar.current.isDateInToday(day)
+    }
+
+    /// "today" / "tomorrow" / "in N days" for the day being rendered.
+    private var dayLabel: String {
+        let calendar = Calendar.current
+        let days = calendar.dateComponents(
+            [.day],
+            from: calendar.startOfDay(for: Date()),
+            to: calendar.startOfDay(for: day)
+        ).day ?? 0
+        switch days {
+        case ..<1: return "today"
+        case 1: return "tomorrow"
+        default: return "in \(days) days"
+        }
+    }
+
+    /// The run after the one on screen. When the screen already shows a future
+    /// day, that day *is* the next run.
     private var nextRoutineDate: Date {
-        routine.nextNonSkippedDate(after: Date())
+        isRenderingToday ? routine.nextNonSkippedDate(after: day) : day
     }
 
     private var isSkippedToday: Bool {
@@ -37,7 +66,7 @@ private struct RoutineTodayContent: View {
     var body: some View {
         TimelineView(.periodic(from: .now, by: 1)) { context in
             let plan = routine.plan.spendingBuffer(sessionStore.spentBufferMinutes)
-            let schedule = ScheduleCalculator.schedule(for: plan, on: context.date)
+            let schedule = ScheduleCalculator.schedule(for: plan, on: day)
             let completedIDs = sessionStore.completedStepIDs
             let activeStep = schedule.activeStep(completedStepIDs: completedIDs)
             let urgency = schedule.urgency(at: context.date, completedStepIDs: completedIDs)
@@ -64,6 +93,8 @@ private struct RoutineTodayContent: View {
                         now: context.date,
                         routineName: routine.name,
                         nextDate: nextRoutineDate,
+                        dayLabel: dayLabel,
+                        isToday: isRenderingToday,
                         completedCount: completedIDs.count,
                         canSpendBuffer: sessionStore.spentBufferMinutes < routine.bufferMinutes,
                         extensionMinutes: Self.extensionMinutes,
@@ -82,9 +113,9 @@ private struct RoutineTodayContent: View {
                         skipAction: {
                             withAnimation(.snappy) {
                                 if urgency == .completed {
-                                    routine.skipDate(routine.nextNonSkippedDate(after: Date()))
+                                    routine.skipDate(routine.nextNonSkippedDate(after: day))
                                 } else {
-                                    routine.skipDate(Date())
+                                    routine.skipDate(day)
                                 }
                             }
                         },
@@ -92,14 +123,14 @@ private struct RoutineTodayContent: View {
                     )
                 }
             }
-            .task(id: routine.id) {
-                sessionStore.prepare(for: routine.id, date: context.date)
+            .task(id: "\(routine.id)-\(Calendar.current.startOfDay(for: day).timeIntervalSince1970)") {
+                sessionStore.prepare(for: routine.id, date: day)
             }
             .onChange(of: urgency == .completed) { _, finished in
                 guard finished else { return }
                 sessionStore.recordOutcome(
                     onTime: context.date <= schedule.plannedFinishDate,
-                    date: context.date
+                    date: day
                 )
             }
             .sheet(isPresented: $showsTimeline) {
@@ -236,6 +267,8 @@ private struct LiveStepScreen: View {
     let now: Date
     let routineName: String
     let nextDate: Date
+    let dayLabel: String
+    let isToday: Bool
     let completedCount: Int
     let canSpendBuffer: Bool
     let extensionMinutes: Int
@@ -376,7 +409,10 @@ private struct LiveStepScreen: View {
         }
         switch urgency {
         case .preparation:
-            return "Starts at \(activeStep.startDate.formatted(date: .omitted, time: .shortened)). Nothing to do yet."
+            let time = activeStep.startDate.formatted(date: .omitted, time: .shortened)
+            return isToday
+                ? "Starts at \(time). Nothing to do yet."
+                : "Starts \(dayLabel) at \(time). Nothing to do yet."
         case .transition:
             if let next = nextStep {
                 return "This is the moment. \(next.step.title) starts when you finish."
@@ -474,7 +510,7 @@ private struct LiveStepScreen: View {
                     .accessibilityHint("Spends \(extensionMinutes) minutes of your safety buffer")
                 }
                 Button(action: skipAction) {
-                    Text("Skip today")
+                    Text("Skip \(dayLabel)")
                         .font(SignalFont.grotesk(14, .medium))
                         .foregroundStyle(style.ink.opacity(0.4))
                         .frame(maxWidth: .infinity)

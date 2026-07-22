@@ -73,6 +73,11 @@ final class RoutineSessionStore {
         }
     }
 
+    func hasProgress(for routineID: UUID, date: Date = Date(), calendar: Calendar = .current) -> Bool {
+        let key = Self.progressKey(routineID: routineID, date: date, calendar: calendar)
+        return !(defaults.stringArray(forKey: key) ?? []).isEmpty
+    }
+
     /// Spends buffer for today only. Tomorrow starts from the routine's configured buffer again.
     func spendBuffer(_ minutes: Int, limit: Int) {
         guard let bufferKey else { return }

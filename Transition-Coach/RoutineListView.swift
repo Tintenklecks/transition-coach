@@ -119,7 +119,8 @@ struct RoutineListView: View {
     }
 
     private var hasAnythingToReset: Bool {
-        routines.contains { !$0.isEnabled || !$0.skippedDates.isEmpty }
+        !sessionStore.completedStepIDs.isEmpty
+            || routines.contains { !$0.isEnabled || !$0.skippedDates.isEmpty }
     }
 
     private func resetAll() {
