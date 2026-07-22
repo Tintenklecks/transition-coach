@@ -9,6 +9,7 @@ final class Routine {
     var bufferMinutes: Int = 5
     var isEnabled: Bool = true
     var notificationsEnabled: Bool = false
+    var skippedDates: [Date] = []
     var createdAt: Date = Date()
 
     @Relationship(deleteRule: .cascade, inverse: \RoutineStep.routine)
@@ -37,6 +38,24 @@ final class Routine {
             }
             return lhs.sortOrder < rhs.sortOrder
         }
+    }
+
+    /// Next date on or after `date + 1 day` that hasn't been skipped.
+    func nextNonSkippedDate(after date: Date, calendar: Calendar = .current) -> Date {
+        var candidate = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: date)) ?? date
+        while skippedDates.contains(where: { calendar.isDate($0, inSameDayAs: candidate) }) {
+            candidate = calendar.date(byAdding: .day, value: 1, to: candidate) ?? candidate
+        }
+        return candidate
+    }
+
+    /// Marks `date` as skipped and prunes dates that are already in the past.
+    func skipDate(_ date: Date, calendar: Calendar = .current) {
+        let dayStart = calendar.startOfDay(for: date)
+        guard !skippedDates.contains(where: { calendar.isDate($0, inSameDayAs: dayStart) }) else { return }
+        skippedDates.append(dayStart)
+        let today = calendar.startOfDay(for: Date())
+        skippedDates = skippedDates.filter { $0 >= today }
     }
 
     var plan: RoutinePlan {
@@ -97,16 +116,16 @@ extension Routine {
         ) ?? now
 
         return Routine(
-            name: "Arbeitsbeginn",
+            name: "Work start",
             targetTime: targetTime,
             bufferMinutes: 5,
             steps: [
-                RoutineStep(title: "Computer verlassen", durationMinutes: 2, sortOrder: 0, symbolName: "laptopcomputer"),
-                RoutineStep(title: "Ins Bad gehen", durationMinutes: 10, sortOrder: 1, symbolName: "drop.fill"),
-                RoutineStep(title: "Anziehen", durationMinutes: 8, sortOrder: 2, symbolName: "tshirt.fill"),
-                RoutineStep(title: "Tasche mitnehmen", durationMinutes: 3, sortOrder: 3, symbolName: "bag.fill"),
-                RoutineStep(title: "Schuhe anziehen", durationMinutes: 2, sortOrder: 4, symbolName: "shoe.fill"),
-                RoutineStep(title: "Zur Arbeit fahren", durationMinutes: 20, sortOrder: 5, symbolName: "car.fill")
+                RoutineStep(title: "Leave the computer", durationMinutes: 2, sortOrder: 0, symbolName: "laptopcomputer"),
+                RoutineStep(title: "Bathroom", durationMinutes: 15, sortOrder: 1, symbolName: "drop.fill"),
+                RoutineStep(title: "Get dressed", durationMinutes: 8, sortOrder: 2, symbolName: "tshirt.fill"),
+                RoutineStep(title: "Bag", durationMinutes: 3, sortOrder: 3, symbolName: "bag.fill"),
+                RoutineStep(title: "Shoes", durationMinutes: 2, sortOrder: 4, symbolName: "shoe.fill"),
+                RoutineStep(title: "Commute", durationMinutes: 20, sortOrder: 5, symbolName: "car.fill")
             ]
         )
     }

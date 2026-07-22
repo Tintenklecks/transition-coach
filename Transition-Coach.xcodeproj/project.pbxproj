@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		825DB4CD300B90A800DC1644 /* Transition Watch Coach Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 825DB4AD300B90A000DC1644 /* Transition Watch Coach Watch App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		82A1000000000000000000A8 /* TransitionCoachNotification.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 82A1000000000000000000A3 /* TransitionCoachNotification.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,13 @@
 			remoteGlobalIDString = 825DB4AC300B90A000DC1644;
 			remoteInfo = "Transition Watch Coach Watch App";
 		};
+		82A1000000000000000000AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 825DB472300B906400DC1644 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 82A1000000000000000000A4;
+			remoteInfo = TransitionCoachNotification;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,6 +68,17 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		82A1000000000000000000A9 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				82A1000000000000000000A8 /* TransitionCoachNotification.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +88,7 @@
 		825DB4AD300B90A000DC1644 /* Transition Watch Coach Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Transition Watch Coach Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		825DB4B9300B90A700DC1644 /* Transition Watch Coach Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Transition Watch Coach Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		825DB4C3300B90A700DC1644 /* Transition Watch Coach Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Transition Watch Coach Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		82A1000000000000000000A3 /* TransitionCoachNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TransitionCoachNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -78,6 +98,13 @@
 				Info.plist,
 			);
 			target = 825DB479300B906400DC1644 /* Transition-Coach */;
+		};
+		82A1000000000000000000AF /* Exceptions for "TransitionCoachNotification" folder in "TransitionCoachNotification" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 82A1000000000000000000A4 /* TransitionCoachNotification */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -113,6 +140,19 @@
 		825DB4C6300B90A800DC1644 /* Transition Watch Coach Watch AppUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Transition Watch Coach Watch AppUITests";
+			sourceTree = "<group>";
+		};
+		82A1000000000000000000A1 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		82A1000000000000000000A2 /* TransitionCoachNotification */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				82A1000000000000000000AF /* Exceptions for "TransitionCoachNotification" folder in "TransitionCoachNotification" target */,
+			);
+			path = TransitionCoachNotification;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -160,6 +200,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		82A1000000000000000000A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -167,6 +214,8 @@
 			isa = PBXGroup;
 			children = (
 				825DB47C300B906400DC1644 /* Transition-Coach */,
+				82A1000000000000000000A1 /* Shared */,
+				82A1000000000000000000A2 /* TransitionCoachNotification */,
 				825DB48E300B906600DC1644 /* Transition-CoachTests */,
 				825DB498300B906600DC1644 /* Transition-CoachUITests */,
 				825DB4AE300B90A100DC1644 /* Transition Watch Coach Watch App */,
@@ -180,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				825DB47A300B906400DC1644 /* Transition-Coach.app */,
+				82A1000000000000000000A3 /* TransitionCoachNotification.appex */,
 				825DB48B300B906600DC1644 /* Transition-CoachTests.xctest */,
 				825DB495300B906600DC1644 /* Transition-CoachUITests.xctest */,
 				825DB4AD300B90A000DC1644 /* Transition Watch Coach Watch App.app */,
@@ -200,14 +250,17 @@
 				825DB477300B906400DC1644 /* Frameworks */,
 				825DB478300B906400DC1644 /* Resources */,
 				825DB4D1300B90A800DC1644 /* Embed Watch Content */,
+				82A1000000000000000000A9 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				825DB4CC300B90A800DC1644 /* PBXTargetDependency */,
+				82A1000000000000000000AB /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				825DB47C300B906400DC1644 /* Transition-Coach */,
+				82A1000000000000000000A1 /* Shared */,
 			);
 			name = "Transition-Coach";
 			packageProductDependencies = (
@@ -330,6 +383,29 @@
 			productReference = 825DB4C3300B90A700DC1644 /* Transition Watch Coach Watch AppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		82A1000000000000000000A4 /* TransitionCoachNotification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82A1000000000000000000AE /* Build configuration list for PBXNativeTarget "TransitionCoachNotification" */;
+			buildPhases = (
+				82A1000000000000000000A5 /* Sources */,
+				82A1000000000000000000A6 /* Frameworks */,
+				82A1000000000000000000A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				82A1000000000000000000A1 /* Shared */,
+				82A1000000000000000000A2 /* TransitionCoachNotification */,
+			);
+			name = TransitionCoachNotification;
+			packageProductDependencies = (
+			);
+			productName = TransitionCoachNotification;
+			productReference = 82A1000000000000000000A3 /* TransitionCoachNotification.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -362,6 +438,9 @@
 						CreatedOnToolsVersion = 26.6;
 						TestTargetID = 825DB4AC300B90A000DC1644;
 					};
+					82A1000000000000000000A4 = {
+						CreatedOnToolsVersion = 26.6;
+					};
 				};
 			};
 			buildConfigurationList = 825DB475300B906400DC1644 /* Build configuration list for PBXProject "Transition-Coach" */;
@@ -379,6 +458,7 @@
 			projectRoot = "";
 			targets = (
 				825DB479300B906400DC1644 /* Transition-Coach */,
+				82A1000000000000000000A4 /* TransitionCoachNotification */,
 				825DB48A300B906600DC1644 /* Transition-CoachTests */,
 				825DB494300B906600DC1644 /* Transition-CoachUITests */,
 				825DB4AC300B90A000DC1644 /* Transition Watch Coach Watch App */,
@@ -431,6 +511,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		82A1000000000000000000A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -476,6 +563,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		82A1000000000000000000A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -504,6 +598,12 @@
 			platformFilter = ios;
 			target = 825DB4AC300B90A000DC1644 /* Transition Watch Coach Watch App */;
 			targetProxy = 825DB4CB300B90A800DC1644 /* PBXContainerItemProxy */;
+		};
+		82A1000000000000000000AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 82A1000000000000000000A4 /* TransitionCoachNotification */;
+			targetProxy = 82A1000000000000000000AA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -975,6 +1075,64 @@
 			};
 			name = Release;
 		};
+		82A1000000000000000000AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TransitionCoachNotification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Transition Coach";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-Coach.NotificationContent";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		82A1000000000000000000AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = KT43342F9W;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TransitionCoachNotification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Transition Coach";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.IBMobile.Transition-Coach.NotificationContent";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1037,6 +1195,15 @@
 			buildConfigurations = (
 				825DB4D6300B90A800DC1644 /* Debug */,
 				825DB4D7300B90A800DC1644 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82A1000000000000000000AE /* Build configuration list for PBXNativeTarget "TransitionCoachNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82A1000000000000000000AC /* Debug */,
+				82A1000000000000000000AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

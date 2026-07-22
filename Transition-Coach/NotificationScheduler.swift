@@ -3,6 +3,9 @@ import UserNotifications
 
 @MainActor
 enum NotificationScheduler {
+    /// Shared with the notification content extension's `UNNotificationExtensionCategory`.
+    static let stepCategoryIdentifier = "TRANSITION_STEP"
+
     static func enable(for routine: Routine) async -> Bool {
         do {
             let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound])
@@ -28,15 +31,24 @@ enum NotificationScheduler {
         let calendar = Calendar.current
         let schedule = ScheduleCalculator.schedule(for: routine.plan, on: Date(), calendar: calendar)
 
-        for item in schedule.steps {
+        for (index, item) in schedule.steps.enumerated() {
+            let next = schedule.steps.indices.contains(index + 1) ? schedule.steps[index + 1] : nil
+
             let content = UNMutableNotificationContent()
-            content.title = "Jetzt wechseln"
+            content.title = "Transition Coach"
             content.body = item.step.title
             content.sound = .default
             content.threadIdentifier = routine.id.uuidString
+            // Lets the notification content extension take over the expanded view.
+            content.categoryIdentifier = Self.stepCategoryIdentifier
             content.userInfo = [
                 "routineID": routine.id.uuidString,
-                "stepID": item.id.uuidString
+                "stepID": item.id.uuidString,
+                "stepTitle": item.step.title,
+                "stepIndex": index + 1,
+                "stepCount": schedule.steps.count,
+                "nextTitle": next?.step.title ?? "",
+                "nextDurationMinutes": next?.step.durationMinutes ?? 0
             ]
 
             let components = calendar.dateComponents([.hour, .minute], from: item.startDate)

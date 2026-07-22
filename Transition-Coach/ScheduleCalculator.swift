@@ -16,6 +16,24 @@ struct RoutinePlan: Equatable, Sendable {
     let steps: [RoutineStepDefinition]
 }
 
+extension RoutinePlan {
+    /// Spends `minutes` of the safety buffer, pushing every step later by that much.
+    ///
+    /// Backs the "+N minutes" action on the live step screen: the schedule is
+    /// back-planned from the target, so shrinking the buffer is exactly what
+    /// "give me more time right now" means. Never goes below zero — the target
+    /// time itself is not negotiable here.
+    func spendingBuffer(_ minutes: Int) -> RoutinePlan {
+        RoutinePlan(
+            id: id,
+            name: name,
+            targetTime: targetTime,
+            bufferMinutes: max(0, bufferMinutes - minutes),
+            steps: steps
+        )
+    }
+}
+
 struct ScheduledStep: Identifiable, Equatable, Sendable {
     let step: RoutineStepDefinition
     let startDate: Date
@@ -58,13 +76,33 @@ enum RoutineUrgency: Equatable, Sendable {
     case critical
     case completed
 
+    /// Eyebrow shown above the instruction on the live step screen.
+    var eyebrow: String {
+        switch self {
+        case .preparation: "Coming up"
+        case .transition: "Now"
+        case .overdue: "Next step is due"
+        case .critical: "Running late"
+        case .completed: "All set"
+        }
+    }
+
     var title: String {
         switch self {
-        case .preparation: "Gleich geht es los"
-        case .transition: "Jetzt wechseln"
-        case .overdue: "Zeit für den nächsten Schritt"
-        case .critical: "Dein Ziel wird knapp"
-        case .completed: "Routine geschafft"
+        case .preparation: "Almost time."
+        case .transition: "Switch now."
+        case .overdue: "Time for the next step."
+        case .critical: "You're behind. Go."
+        case .completed: "You're ready."
+        }
+    }
+
+    /// Supportive line under the instruction. Descriptive, never blaming.
+    var reassurance: String? {
+        switch self {
+        case .critical: "A rough morning is information, not failure."
+        case .completed: "Everything is done ahead of your target."
+        default: nil
         }
     }
 }
