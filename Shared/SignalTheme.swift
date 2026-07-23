@@ -119,6 +119,49 @@ extension View {
     }
 }
 
+// MARK: - Schedule state
+
+/// Background, ink and button colors for one schedule state.
+///
+/// Status colors are functional signals and stay untinted by the brand accent —
+/// blue means "not yet", amber means "now", red means "at risk". Shared so the
+/// watch shows the same color for the same state.
+struct SignalStateStyle {
+    let background: Color
+    let ink: Color
+    let buttonBackground: Color
+    let buttonForeground: Color
+    let prefersDarkChrome: Bool
+
+    init(_ urgency: RoutineUrgency) {
+        switch urgency {
+        case .preparation:
+            background = Signal.upcoming
+            ink = .white
+            buttonBackground = .white
+            buttonForeground = Signal.upcoming
+            prefersDarkChrome = true
+        case .transition, .overdue:
+            background = Signal.now
+            ink = Signal.background
+            buttonBackground = Signal.background
+            buttonForeground = Signal.now
+            prefersDarkChrome = false
+        case .critical:
+            background = Signal.late
+            ink = .white
+            buttonBackground = .white
+            buttonForeground = Signal.late
+            prefersDarkChrome = true
+        case .completed:
+            background = Signal.background
+            ink = .white
+            buttonBackground = Signal.accent
+            buttonForeground = Signal.background
+            prefersDarkChrome = true
+        }
+    }
+}
 // MARK: - Containers
 
 /// Rounded dark card used to group rows. Rows inside are divided by `SignalHairline`.

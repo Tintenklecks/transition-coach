@@ -71,6 +71,7 @@ private struct RoutineTodayContent: View {
             let activeStep = schedule.activeStep(completedStepIDs: completedIDs)
             let urgency = schedule.urgency(at: context.date, completedStepIDs: completedIDs)
             let style = StateStyle(urgency)
+            let snapshot = watchSnapshot(schedule: schedule, completedIDs: completedIDs)
 
             Group {
                 if isSkippedToday {
@@ -133,6 +134,12 @@ private struct RoutineTodayContent: View {
                     date: day
                 )
             }
+            .onChange(of: snapshot, initial: true) { _, latest in
+                WatchLink.shared.publish(latest)
+                WatchLink.shared.primaryActionHandler = {
+                    advance(in: schedule)
+                }
+            }
             .sheet(isPresented: $showsTimeline) {
                 TimelineScreen(
                     routine: routine,
@@ -143,6 +150,30 @@ private struct RoutineTodayContent: View {
                     resetAction: { withAnimation(.snappy) { sessionStore.reset() } }
                 )
             }
+        }
+    }
+
+    /// What the watch mirrors. On a skipped day it shows the next run instead,
+    /// so the wrist never contradicts the phone.
+    private func watchSnapshot(
+        schedule: RoutineSchedule,
+        completedIDs: Set<UUID>
+    ) -> CoachSnapshot {
+        guard isSkippedToday else {
+            return CoachSnapshot(schedule: schedule, day: day, completedStepIDs: completedIDs)
+        }
+        let next = ScheduleCalculator.schedule(for: routine.plan, on: nextRoutineDate)
+        return CoachSnapshot(schedule: next, day: nextRoutineDate, completedStepIDs: [])
+    }
+
+    /// The watch's button does exactly what the phone's does: finish the step in
+    /// front of you, or reset once the routine is done.
+    private func advance(in schedule: RoutineSchedule) {
+        guard !isSkippedToday else { return }
+        if let step = schedule.activeStep(completedStepIDs: sessionStore.completedStepIDs) {
+            withAnimation(.snappy) { sessionStore.complete(step.id) }
+        } else {
+            withAnimation(.snappy) { sessionStore.reset() }
         }
     }
 }
@@ -218,46 +249,8 @@ private struct SkippedDayScreen: View {
     }
 }
 
-/// Background, ink and button colors for one schedule state.
-///
-/// Status colors are functional signals and stay untinted by the brand accent —
-/// blue means "not yet", amber means "now", red means "at risk".
-private struct StateStyle {
-    let background: Color
-    let ink: Color
-    let buttonBackground: Color
-    let buttonForeground: Color
-    let prefersDarkChrome: Bool
-
-    init(_ urgency: RoutineUrgency) {
-        switch urgency {
-        case .preparation:
-            background = Signal.upcoming
-            ink = .white
-            buttonBackground = .white
-            buttonForeground = Signal.upcoming
-            prefersDarkChrome = true
-        case .transition, .overdue:
-            background = Signal.now
-            ink = Signal.background
-            buttonBackground = Signal.background
-            buttonForeground = Signal.now
-            prefersDarkChrome = false
-        case .critical:
-            background = Signal.late
-            ink = .white
-            buttonBackground = .white
-            buttonForeground = Signal.late
-            prefersDarkChrome = true
-        case .completed:
-            background = Signal.background
-            ink = .white
-            buttonBackground = Signal.accent
-            buttonForeground = Signal.background
-            prefersDarkChrome = true
-        }
-    }
-}
+/// Colors for one schedule state. Defined in Shared so the watch mirrors them.
+private typealias StateStyle = SignalStateStyle
 
 private struct LiveStepScreen: View {
     let schedule: RoutineSchedule
@@ -548,16 +541,8 @@ private struct LiveStepScreen: View {
         Double(schedule.plan.bufferMinutes * 60)
     }
 
-    /// M:SS, promoting to H:MM:SS past the hour so a long overrun never renders
-    /// as an unreadable minute count like "828:19".
     private func clock(from start: Date, to end: Date) -> String {
-        let seconds = max(0, Int(end.timeIntervalSince(start)))
-        let hours = seconds / 3600
-        let minutes = (seconds % 3600) / 60
-        guard hours > 0 else {
-            return String(format: "%d:%02d", minutes, seconds % 60)
-        }
-        return String(format: "%d:%02d:%02d", hours, minutes, seconds % 60)
+        SignalClock.text(from: start, to: end)
     }
 }
 

@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct Transition_Watch_Coach_Watch_AppApp: App {
+    init() {
+        WatchLink.shared.activate()
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WristTodayView()
         }
     }
 }

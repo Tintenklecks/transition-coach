@@ -24,6 +24,10 @@ struct Transition_CoachApp: App {
         }
     }()
 
+    init() {
+        WatchLink.shared.activate()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
