@@ -11,9 +11,26 @@ struct RoutineStepDefinition: Identifiable, Equatable, Sendable {
 struct RoutinePlan: Equatable, Sendable {
     let id: UUID
     let name: String
+    let symbolName: String
     let targetTime: Date
     let bufferMinutes: Int
     let steps: [RoutineStepDefinition]
+
+    init(
+        id: UUID,
+        name: String,
+        symbolName: String = "clock.arrow.circlepath",
+        targetTime: Date,
+        bufferMinutes: Int,
+        steps: [RoutineStepDefinition]
+    ) {
+        self.id = id
+        self.name = name
+        self.symbolName = symbolName
+        self.targetTime = targetTime
+        self.bufferMinutes = bufferMinutes
+        self.steps = steps
+    }
 }
 
 extension RoutinePlan {
@@ -27,6 +44,7 @@ extension RoutinePlan {
         RoutinePlan(
             id: id,
             name: name,
+            symbolName: symbolName,
             targetTime: targetTime,
             bufferMinutes: max(0, bufferMinutes - minutes),
             steps: steps

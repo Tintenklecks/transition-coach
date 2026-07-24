@@ -253,10 +253,25 @@ private struct UpcomingRoutineScreen: View {
                 .foregroundStyle(Signal.restingSecondary)
                 .padding(.top, 14)
 
+            if !schedule.steps.isEmpty {
+                LazyVGrid(columns: stepColumns, alignment: .leading, spacing: stepSpacing) {
+                    ForEach(schedule.steps) { item in
+                        UpcomingStepPreview(
+                            title: item.step.title,
+                            symbolName: item.step.symbolName,
+                            isCompact: usesCompactStepGrid
+                        )
+                    }
+                }
+                .padding(.top, 18)
+                .accessibilityElement(children: .contain)
+                .accessibilityLabel("Routine steps")
+            }
+
             Text(detailLine)
                 .font(SignalFont.grotesk(14, .medium))
                 .foregroundStyle(Signal.restingSecondary)
-                .padding(.top, 5)
+                .padding(.top, schedule.steps.isEmpty ? 5 : 14)
 
             Spacer(minLength: 34)
 
@@ -293,11 +308,27 @@ private struct UpcomingRoutineScreen: View {
     }
 
     private var routineSymbol: String {
-        schedule.steps.first?.step.symbolName ?? "clock.arrow.circlepath"
+        schedule.plan.symbolName
     }
 
     private var durationMinutes: Int {
         schedule.plan.steps.reduce(0) { $0 + max(1, $1.durationMinutes) }
+    }
+
+    private var usesCompactStepGrid: Bool {
+        schedule.steps.count > 8
+    }
+
+    private var stepColumns: [GridItem] {
+        let count = usesCompactStepGrid ? 3 : 2
+        return Array(
+            repeating: GridItem(.flexible(minimum: 0), spacing: 12, alignment: .leading),
+            count: count
+        )
+    }
+
+    private var stepSpacing: CGFloat {
+        usesCompactStepGrid ? 8 : 10
     }
 
     private var startLine: String {
@@ -318,6 +349,36 @@ private struct UpcomingRoutineScreen: View {
         let steps = stepCount == 1 ? "1 step" : "\(stepCount) steps"
         let readyTime = schedule.plannedFinishDate.formatted(date: .omitted, time: .shortened)
         return "\(steps) · \(durationMinutes) min · ready by \(readyTime)"
+    }
+}
+
+private struct UpcomingStepPreview: View {
+    let title: String
+    let symbolName: String
+    let isCompact: Bool
+
+    var body: some View {
+        HStack(spacing: isCompact ? 6 : 8) {
+            Image(systemName: symbolName)
+                .font(.system(
+                    size: isCompact ? 11 : 13,
+                    weight: .semibold
+                ))
+                .foregroundStyle(Signal.restingInk)
+                .frame(
+                    width: isCompact ? 24 : 28,
+                    height: isCompact ? 24 : 28
+                )
+                .background(Signal.restingSurface, in: .circle)
+
+            Text(title)
+                .font(SignalFont.grotesk(isCompact ? 11 : 13, .medium))
+                .foregroundStyle(Signal.restingInk.opacity(0.78))
+                .lineLimit(isCompact ? 1 : 2)
+                .minimumScaleFactor(0.72)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
     }
 }
 

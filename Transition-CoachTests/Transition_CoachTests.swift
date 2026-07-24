@@ -96,6 +96,28 @@ struct Transition_CoachTests {
         #expect(routine.sortedSteps.map(\.sortOrder) == [0, 1, 2])
     }
 
+    @Test func routineIconIsIndependentFromFirstStepIcon() {
+        let firstStep = RoutineStep(
+            title: "Drive",
+            durationMinutes: 10,
+            sortOrder: 0,
+            symbolName: "car.fill"
+        )
+        let routine = Routine(
+            name: "Work",
+            symbolName: "briefcase.fill",
+            targetTime: Date(),
+            steps: [firstStep]
+        )
+        let schedule = ScheduleCalculator.schedule(for: routine.plan, on: Date(), calendar: calendar)
+        let snapshot = CoachSnapshot(schedule: schedule, day: Date(), completedStepIDs: [])
+
+        #expect(routine.plan.symbolName == "briefcase.fill")
+        #expect(routine.plan.steps.first?.symbolName == "car.fill")
+        #expect(snapshot.routineSymbolName == "briefcase.fill")
+        #expect(snapshot.steps.first?.symbolName == "car.fill")
+    }
+
     @Test func routineWindowIsNeutralBeforeStartAndFinishedAfterTarget() throws {
         let target = try #require(calendar.date(from: DateComponents(
             year: 2026, month: 7, day: 18, hour: 9

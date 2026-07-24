@@ -148,7 +148,7 @@ private struct RoutineRow: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            Image(systemName: "sunrise.fill")
+            Image(systemName: routine.symbolName)
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundStyle(routine.isEnabled ? Signal.background : Signal.textSecondary)
                 .frame(width: 30, height: 30)
@@ -315,6 +315,29 @@ struct RoutineEditorView: View {
     private var goalCard: some View {
         SignalCard {
             HStack {
+                Text("Routine icon")
+                    .font(SignalFont.grotesk(16, .medium))
+                    .foregroundStyle(Signal.textPrimary)
+                Spacer()
+                Menu {
+                    RoutineSymbolMenu(selection: $routine.symbolName)
+                } label: {
+                    Image(systemName: routine.symbolName)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Signal.background)
+                        .frame(width: 34, height: 34)
+                        .background(Signal.accent, in: .circle)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Icon for \(routine.name)")
+                .accessibilityHint("Choose an SF Symbol for this routine")
+            }
+            .padding(.horizontal, 18)
+            .padding(.vertical, 12)
+
+            SignalHairline()
+
+            HStack {
                 Text("Target time")
                     .font(SignalFont.grotesk(16, .medium))
                     .foregroundStyle(Signal.textPrimary)
@@ -459,7 +482,7 @@ private struct RoutineStepEditorRow: View {
     var body: some View {
         HStack(spacing: 14) {
             Menu {
-                RoutineStepSymbolMenu(selection: $step.symbolName)
+                RoutineSymbolMenu(selection: $step.symbolName)
             } label: {
                 Image(systemName: step.symbolName)
                     .font(.system(size: 17, weight: .semibold))
@@ -532,10 +555,18 @@ private struct RoutineStepDropDelegate: DropDelegate {
     }
 }
 
-private struct RoutineStepSymbolMenu: View {
+private struct RoutineSymbolMenu: View {
     @Binding var selection: String
 
     var body: some View {
+        symbolSection("Routines", symbols: [
+            (Routine.defaultSymbolName, "General"),
+            ("sunrise.fill", "Morning"),
+            ("moon.stars.fill", "Evening"),
+            ("briefcase.fill", "Work"),
+            ("house.fill", "Home"),
+            ("figure.run", "Exercise")
+        ])
         symbolSection("Getting ready", symbols: [
             ("drop.fill", "Bathroom"),
             ("tshirt.fill", "Get dressed"),

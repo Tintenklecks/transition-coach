@@ -3,8 +3,11 @@ import SwiftData
 
 @Model
 final class Routine {
+    static let defaultSymbolName = "clock.arrow.circlepath"
+
     var id: UUID = UUID()
     var name: String = ""
+    var symbolName: String = Routine.defaultSymbolName
     var targetTime: Date = Date()
     var bufferMinutes: Int = 5
     var isEnabled: Bool = true
@@ -17,6 +20,7 @@ final class Routine {
 
     init(
         name: String,
+        symbolName: String = Routine.defaultSymbolName,
         targetTime: Date,
         bufferMinutes: Int = 5,
         isEnabled: Bool = true,
@@ -24,6 +28,7 @@ final class Routine {
         steps: [RoutineStep] = []
     ) {
         self.name = name
+        self.symbolName = symbolName
         self.targetTime = targetTime
         self.bufferMinutes = bufferMinutes
         self.isEnabled = isEnabled
@@ -81,6 +86,7 @@ final class Routine {
         RoutinePlan(
             id: id,
             name: name,
+            symbolName: symbolName,
             targetTime: targetTime,
             bufferMinutes: bufferMinutes,
             steps: sortedSteps.map(\.definition)
@@ -138,6 +144,7 @@ extension Routine {
 
         return Routine(
             name: "Work start",
+            symbolName: "briefcase.fill",
             targetTime: targetTime,
             bufferMinutes: 5,
             steps: [

@@ -18,6 +18,7 @@ struct CoachSnapshot: Codable, Equatable, Sendable {
 
     let routineID: UUID
     let routineName: String
+    let routineSymbolName: String?
     /// The day this schedule was planned for — today, or the routine's next run.
     let day: Date
     let targetDate: Date
@@ -69,6 +70,7 @@ extension CoachSnapshot {
         self.init(
             routineID: schedule.plan.id,
             routineName: schedule.plan.name,
+            routineSymbolName: schedule.plan.symbolName,
             day: day,
             targetDate: schedule.targetDate,
             bufferMinutes: schedule.plan.bufferMinutes,

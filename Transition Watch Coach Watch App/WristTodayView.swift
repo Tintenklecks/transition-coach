@@ -54,7 +54,7 @@ private struct UpcomingWristScreen: View {
             Spacer(minLength: 8)
 
             HStack(spacing: 9) {
-                Image(systemName: snapshot.steps.first?.symbolName ?? "clock")
+                Image(systemName: snapshot.routineSymbolName ?? "clock.arrow.circlepath")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundStyle(Signal.restingInk)
                     .frame(width: 34, height: 34)
