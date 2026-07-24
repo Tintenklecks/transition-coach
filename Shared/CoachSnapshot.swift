@@ -10,6 +10,7 @@ struct CoachSnapshot: Codable, Equatable, Sendable {
         let id: UUID
         let title: String
         let durationMinutes: Int
+        let symbolName: String?
         let start: Date
         let end: Date
         let isCompleted: Bool
@@ -76,6 +77,7 @@ extension CoachSnapshot {
                     id: item.id,
                     title: item.step.title,
                     durationMinutes: item.step.durationMinutes,
+                    symbolName: item.step.symbolName,
                     start: item.startDate,
                     end: item.endDate,
                     isCompleted: completedStepIDs.contains(item.id)

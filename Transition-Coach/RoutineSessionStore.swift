@@ -74,8 +74,20 @@ final class RoutineSessionStore {
     }
 
     func hasProgress(for routineID: UUID, date: Date = Date(), calendar: Calendar = .current) -> Bool {
+        !completedStepIDs(for: routineID, date: date, calendar: calendar).isEmpty
+    }
+
+    /// Persisted progress for any routine/day, including one that isn't currently
+    /// loaded into the live session. This lets the Today tab compare all routines
+    /// and move on as soon as the current one is complete.
+    func completedStepIDs(
+        for routineID: UUID,
+        date: Date = Date(),
+        calendar: Calendar = .current
+    ) -> Set<UUID> {
         let key = Self.progressKey(routineID: routineID, date: date, calendar: calendar)
-        return !(defaults.stringArray(forKey: key) ?? []).isEmpty
+        let savedIDs = defaults.stringArray(forKey: key) ?? []
+        return Set(savedIDs.compactMap(UUID.init(uuidString:)))
     }
 
     /// Spends buffer for today only. Tomorrow starts from the routine's configured buffer again.

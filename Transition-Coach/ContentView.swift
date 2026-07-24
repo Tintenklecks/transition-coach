@@ -16,6 +16,10 @@ struct ContentView: View {
     @State private var sessionStore = RoutineSessionStore()
 
     private var activeSelection: ActiveRoutineSelection? {
+        // Establish observation so completing the final step immediately causes
+        // the next routine to be selected.
+        _ = sessionStore.completedStepIDs
+
         let now = Date()
         let calendar = Calendar.current
         let windows = routines.filter(\.isEnabled).map { routine in
@@ -28,10 +32,9 @@ struct ContentView: View {
     /// The next relevant window for a routine: which day it runs on, and when its
     /// first step starts on that day.
     ///
-    /// Today's window only counts while the routine is still actionable — before
-    /// its target, or past it if the user actually started tracking it, and never
-    /// more than an hour past target. Otherwise the routine has moved on to its
-    /// next non-skipped day, and it must be *displayed* on that day too.
+    /// Today's window only counts until it is complete or its target has passed.
+    /// Outside that compact window the Today tab should select the genuinely next
+    /// routine and render its calm, neutral waiting state.
     private func nextWindow(
         for routine: Routine,
         now: Date,
@@ -40,15 +43,13 @@ struct ContentView: View {
         let isSkippedToday = routine.skippedDates.contains(where: { calendar.isDateInToday($0) })
         if !isSkippedToday {
             let schedule = ScheduleCalculator.schedule(for: routine.plan, on: now)
-            // Hard 1-hour cap: once more than 1 hour past target, always move to tomorrow.
-            // Within the window, only treat as "today's" if we're before the target OR the
-            // user actually started tracking it — so skipping an earlier routine never pulls
-            // in a completely unrelated past-due routine.
-            if now <= schedule.targetDate.addingTimeInterval(3600) {
-                let hasStarted = sessionStore.hasProgress(for: routine.id, date: now)
-                if now <= schedule.targetDate || hasStarted {
-                    return (now, schedule.startDate)
-                }
+            let completedIDs = sessionStore.completedStepIDs(
+                for: routine.id,
+                date: now,
+                calendar: calendar
+            )
+            if schedule.windowPhase(at: now, completedStepIDs: completedIDs) != .finished {
+                return (now, schedule.startDate)
             }
         }
         let nextDay = routine.nextNonSkippedDate(after: now)
@@ -94,7 +95,7 @@ private struct VersionBadge: View {
     var body: some View {
         Text(label)
             .font(.system(size: 9, weight: .medium, design: .monospaced))
-            .foregroundStyle(.white.opacity(0.35))
+            .foregroundStyle(.secondary.opacity(0.45))
             .allowsHitTesting(false)
             .accessibilityHidden(true)
     }

@@ -70,21 +70,42 @@ private struct RoutineTodayContent: View {
             let completedIDs = sessionStore.completedStepIDs
             let activeStep = schedule.activeStep(completedStepIDs: completedIDs)
             let urgency = schedule.urgency(at: context.date, completedStepIDs: completedIDs)
+            let windowPhase = schedule.windowPhase(
+                at: context.date,
+                completedStepIDs: completedIDs
+            )
             let style = StateStyle(urgency)
-            let snapshot = watchSnapshot(schedule: schedule, completedIDs: completedIDs)
+            let snapshot = watchSnapshot(
+                schedule: schedule,
+                completedIDs: completedIDs,
+                windowPhase: windowPhase
+            )
 
             Group {
                 if isSkippedToday {
-                    SkippedDayScreen(
-                        plan: routine.plan,
+                    let nextSchedule = ScheduleCalculator.schedule(
+                        for: routine.plan,
+                        on: nextRoutineDate
+                    )
+                    UpcomingRoutineScreen(
+                        schedule: nextSchedule,
                         now: context.date,
-                        nextDate: nextRoutineDate,
-                        undoAction: {
+                        statusMessage: "Today is skipped",
+                        secondaryActionTitle: "Undo today's skip",
+                        secondaryAction: {
                             withAnimation(.snappy) {
                                 routine.skippedDates.removeAll { Calendar.current.isDateInToday($0) }
                             }
                         }
                     )
+                } else if windowPhase == .upcoming {
+                    UpcomingRoutineScreen(schedule: schedule, now: context.date)
+                } else if windowPhase == .finished {
+                    let nextSchedule = ScheduleCalculator.schedule(
+                        for: routine.plan,
+                        on: nextRoutineDate
+                    )
+                    UpcomingRoutineScreen(schedule: nextSchedule, now: context.date)
                 } else {
                     LiveStepScreen(
                         schedule: schedule,
@@ -157,9 +178,10 @@ private struct RoutineTodayContent: View {
     /// so the wrist never contradicts the phone.
     private func watchSnapshot(
         schedule: RoutineSchedule,
-        completedIDs: Set<UUID>
+        completedIDs: Set<UUID>,
+        windowPhase: RoutineWindowPhase
     ) -> CoachSnapshot {
-        guard isSkippedToday else {
+        guard isSkippedToday || windowPhase == .finished else {
             return CoachSnapshot(schedule: schedule, day: day, completedStepIDs: completedIDs)
         }
         let next = ScheduleCalculator.schedule(for: routine.plan, on: nextRoutineDate)
@@ -178,74 +200,124 @@ private struct RoutineTodayContent: View {
     }
 }
 
-// MARK: - Skipped-day screen
+// MARK: - Calm waiting screen
 
-private struct SkippedDayScreen: View {
-    let plan: RoutinePlan
+private struct UpcomingRoutineScreen: View {
+    let schedule: RoutineSchedule
     let now: Date
-    let nextDate: Date
-    let undoAction: () -> Void
+    var statusMessage: String?
+    var secondaryActionTitle: String?
+    var secondaryAction: (() -> Void)?
 
     var body: some View {
-        let nextSchedule = ScheduleCalculator.schedule(for: plan, on: nextDate)
-        let days = Calendar.current.dateComponents(
-            [.day],
-            from: Calendar.current.startOfDay(for: now),
-            to: Calendar.current.startOfDay(for: nextDate)
-        ).day ?? 1
-        let dayLabel = days == 1 ? "Tomorrow" : "In \(days) days"
-
         VStack(alignment: .leading, spacing: 0) {
-            Text("Skipped today · \(now.formatted(date: .omitted, time: .shortened))")
-                .signalEyebrow(color: .white.opacity(0.6), tracking: 0.14)
-
-            Text(plan.name.uppercased())
-                .font(SignalFont.grotesk(44, .bold))
-                .displayTracking(44)
-                .foregroundStyle(.white)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.top, 28)
-
-            Text("\(dayLabel) at \(nextSchedule.targetDate.formatted(date: .omitted, time: .shortened))")
-                .font(SignalFont.grotesk(17, .medium))
-                .foregroundStyle(.white.opacity(0.72))
-                .lineSpacing(3)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.top, 18)
-
-            Spacer(minLength: 24)
-
-            if let firstStep = nextSchedule.steps.first {
-                HStack(alignment: .firstTextBaseline, spacing: 10) {
-                    Text(firstStep.startDate.formatted(date: .omitted, time: .shortened))
-                        .font(SignalFont.mono(56, .bold))
-                        .foregroundStyle(.white)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.45)
-                        .layoutPriority(1)
-                    Text("routine starts · \(firstStep.step.title.lowercased())")
-                        .font(SignalFont.grotesk(14, .medium))
-                        .foregroundStyle(.white.opacity(0.6))
-                        .lineLimit(2)
-                }
-                .padding(.bottom, 22)
+            HStack(alignment: .firstTextBaseline) {
+                Text("Transition Coach")
+                    .signalEyebrow(color: Signal.restingSecondary, tracking: 0.14)
+                Spacer(minLength: 12)
+                Text(now.formatted(date: .omitted, time: .shortened))
+                    .font(SignalFont.mono(12, .semibold))
+                    .foregroundStyle(Signal.restingSecondary)
             }
 
-            Button(action: undoAction) {
-                Text("Undo skip")
+            if let statusMessage {
+                Text(statusMessage)
+                    .font(SignalFont.grotesk(13, .medium))
+                    .foregroundStyle(Signal.restingSecondary)
+                    .padding(.top, 12)
             }
-            .buttonStyle(SignalPrimaryButtonStyle(
-                background: Signal.accent,
-                foreground: Signal.background
-            ))
+
+            Spacer(minLength: 34)
+
+            Image(systemName: routineSymbol)
+                .font(.system(size: 34, weight: .semibold))
+                .symbolRenderingMode(.hierarchical)
+                .foregroundStyle(Signal.restingInk)
+                .frame(width: 80, height: 80)
+                .background(Signal.restingSurface, in: .circle)
+                .shadow(color: Signal.restingInk.opacity(0.06), radius: 16, y: 7)
+
+            Text("Next routine")
+                .signalEyebrow(color: Signal.restingSecondary, tracking: 0.12)
+                .padding(.top, 30)
+
+            Text(schedule.plan.name)
+                .font(SignalFont.grotesk(42, .bold))
+                .displayTracking(42)
+                .foregroundStyle(Signal.restingInk)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.top, 7)
+
+            Text(startLine)
+                .font(SignalFont.grotesk(16, .medium))
+                .foregroundStyle(Signal.restingSecondary)
+                .padding(.top, 14)
+
+            Text(detailLine)
+                .font(SignalFont.grotesk(14, .medium))
+                .foregroundStyle(Signal.restingSecondary)
+                .padding(.top, 5)
+
+            Spacer(minLength: 34)
+
+            Text("Starts in")
+                .signalEyebrow(color: Signal.restingSecondary, tracking: 0.12)
+
+            Text(SignalClock.text(from: now, to: schedule.startDate))
+                .font(SignalFont.mono(54, .bold))
+                .foregroundStyle(Signal.restingInk)
+                .contentTransition(.numericText())
+                .lineLimit(1)
+                .minimumScaleFactor(0.48)
+                .padding(.top, 4)
+
+            if let secondaryActionTitle, let secondaryAction {
+                Button(secondaryActionTitle, action: secondaryAction)
+                    .font(SignalFont.grotesk(14, .medium))
+                    .foregroundStyle(Signal.restingSecondary)
+                    .buttonStyle(.plain)
+                    .padding(.top, 18)
+            }
         }
         .padding(.horizontal, 28)
         .padding(.top, 24)
         .padding(.bottom, 44)
         .frame(maxWidth: 560)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Signal.background.ignoresSafeArea())
-        .preferredColorScheme(.dark)
+        .background(Signal.restingBackground.ignoresSafeArea())
+        .preferredColorScheme(.light)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(
+            "Next routine, \(schedule.plan.name), \(detailLine), starts in \(SignalClock.text(from: now, to: schedule.startDate))"
+        )
+    }
+
+    private var routineSymbol: String {
+        schedule.steps.first?.step.symbolName ?? "clock.arrow.circlepath"
+    }
+
+    private var durationMinutes: Int {
+        schedule.plan.steps.reduce(0) { $0 + max(1, $1.durationMinutes) }
+    }
+
+    private var startLine: String {
+        let calendar = Calendar.current
+        let prefix: String
+        if calendar.isDateInToday(schedule.startDate) {
+            prefix = "Today"
+        } else if calendar.isDateInTomorrow(schedule.startDate) {
+            prefix = "Tomorrow"
+        } else {
+            prefix = schedule.startDate.formatted(.dateTime.weekday(.wide).month().day())
+        }
+        return "\(prefix) at \(schedule.startDate.formatted(date: .omitted, time: .shortened))"
+    }
+
+    private var detailLine: String {
+        let stepCount = schedule.steps.count
+        let steps = stepCount == 1 ? "1 step" : "\(stepCount) steps"
+        let readyTime = schedule.plannedFinishDate.formatted(date: .omitted, time: .shortened)
+        return "\(steps) · \(durationMinutes) min · ready by \(readyTime)"
     }
 }
 

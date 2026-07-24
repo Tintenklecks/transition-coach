@@ -12,13 +12,17 @@ struct WristTodayView: View {
     var body: some View {
         TimelineView(.periodic(from: .now, by: 1)) { context in
             if let snapshot = link.snapshot, context.date <= snapshot.expiresAt {
-                LiveWristScreen(
-                    snapshot: snapshot,
-                    now: context.date,
-                    isReachable: link.isReachable,
-                    lastActionFailed: lastActionFailed,
-                    action: primaryAction
-                )
+                if isWaitingForRoutine(snapshot, at: context.date) {
+                    UpcomingWristScreen(snapshot: snapshot, now: context.date)
+                } else {
+                    LiveWristScreen(
+                        snapshot: snapshot,
+                        now: context.date,
+                        isReachable: link.isReachable,
+                        lastActionFailed: lastActionFailed,
+                        action: primaryAction
+                    )
+                }
             } else {
                 WaitingScreen(hasStalePlan: link.snapshot != nil)
             }
@@ -30,6 +34,60 @@ struct WristTodayView: View {
         link.requestPrimaryAction { succeeded in
             lastActionFailed = !succeeded
         }
+    }
+
+    private func isWaitingForRoutine(_ snapshot: CoachSnapshot, at date: Date) -> Bool {
+        guard snapshot.completedCount == 0 else { return false }
+        return date < (snapshot.steps.first?.start ?? snapshot.targetDate)
+    }
+}
+
+private struct UpcomingWristScreen: View {
+    let snapshot: CoachSnapshot
+    let now: Date
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Transition Coach")
+                .signalEyebrow(size: 9, color: Signal.restingSecondary, tracking: 0.1)
+
+            Spacer(minLength: 8)
+
+            HStack(spacing: 9) {
+                Image(systemName: snapshot.steps.first?.symbolName ?? "clock")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(Signal.restingInk)
+                    .frame(width: 34, height: 34)
+                    .background(Signal.restingSurface, in: .circle)
+
+                Text(snapshot.routineName)
+                    .font(SignalFont.grotesk(17, .bold))
+                    .foregroundStyle(Signal.restingInk)
+                    .lineLimit(2)
+            }
+
+            Spacer(minLength: 10)
+
+            Text(SignalClock.text(from: now, to: startDate))
+                .font(SignalFont.mono(31, .bold))
+                .foregroundStyle(Signal.restingInk)
+                .contentTransition(.numericText())
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+
+            Text("until next routine")
+                .font(SignalFont.grotesk(11, .medium))
+                .foregroundStyle(Signal.restingSecondary)
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background(Signal.restingBackground.ignoresSafeArea())
+        .preferredColorScheme(.light)
+    }
+
+    private var startDate: Date {
+        snapshot.steps.first?.start ?? snapshot.targetDate
     }
 }
 

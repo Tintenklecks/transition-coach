@@ -14,6 +14,10 @@ enum Signal {
     static let hairline = Color(hex: 0x232329)
     static let border = Color(hex: 0x2A2A32)
     static let inactive = Color(hex: 0x3A3A42)
+    static let restingBackground = Color(hex: 0xF7F7F3)
+    static let restingSurface = Color.white
+    static let restingInk = Color(hex: 0x171719)
+    static let restingSecondary = Color(hex: 0x6F716B)
 
     // Text
     static let textPrimary = Color.white

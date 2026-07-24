@@ -95,4 +95,35 @@ struct Transition_CoachTests {
         #expect(routine.sortedSteps.map(\.id) == [third.id, first.id, second.id])
         #expect(routine.sortedSteps.map(\.sortOrder) == [0, 1, 2])
     }
+
+    @Test func routineWindowIsNeutralBeforeStartAndFinishedAfterTarget() throws {
+        let target = try #require(calendar.date(from: DateComponents(
+            year: 2026, month: 7, day: 18, hour: 9
+        )))
+        let stepID = UUID()
+        let plan = RoutinePlan(
+            id: UUID(),
+            name: "Morning",
+            targetTime: target,
+            bufferMinutes: 5,
+            steps: [
+                RoutineStepDefinition(
+                    id: stepID,
+                    title: "Drive",
+                    durationMinutes: 20,
+                    symbolName: "car.fill",
+                    requiresConfirmation: true
+                )
+            ]
+        )
+        let schedule = ScheduleCalculator.schedule(for: plan, on: target, calendar: calendar)
+        let beforeStart = try #require(calendar.date(byAdding: .minute, value: -1, to: schedule.startDate))
+        let duringRoutine = try #require(calendar.date(byAdding: .minute, value: 1, to: schedule.startDate))
+        let afterTarget = try #require(calendar.date(byAdding: .second, value: 1, to: schedule.targetDate))
+
+        #expect(schedule.windowPhase(at: beforeStart, completedStepIDs: []) == .upcoming)
+        #expect(schedule.windowPhase(at: duringRoutine, completedStepIDs: []) == .active)
+        #expect(schedule.windowPhase(at: duringRoutine, completedStepIDs: [stepID]) == .finished)
+        #expect(schedule.windowPhase(at: afterTarget, completedStepIDs: []) == .finished)
+    }
 }

@@ -67,6 +67,25 @@ struct RoutineSchedule: Equatable, Sendable {
         let delaySeconds = date.timeIntervalSince(activeStep.endDate)
         return delaySeconds > Double(plan.bufferMinutes * 60) ? .critical : .overdue
     }
+
+    /// The broad screen-level state. Urgency only matters while the routine is
+    /// active; before its first step and after its target the app should be calm.
+    func windowPhase(at date: Date, completedStepIDs: Set<UUID>) -> RoutineWindowPhase {
+        let isComplete = !steps.isEmpty && steps.allSatisfy { completedStepIDs.contains($0.id) }
+        if isComplete || date > targetDate {
+            return .finished
+        }
+        if date < startDate && completedStepIDs.isEmpty {
+            return .upcoming
+        }
+        return .active
+    }
+}
+
+enum RoutineWindowPhase: Equatable, Sendable {
+    case upcoming
+    case active
+    case finished
 }
 
 enum RoutineUrgency: Equatable, Sendable {
