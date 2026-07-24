@@ -40,6 +40,25 @@ final class Routine {
         }
     }
 
+    /// Moves a step to the position currently occupied by another step.
+    /// Used by the editor's drag handle and kept here so every reorder leaves
+    /// the persisted sort values contiguous.
+    func moveStep(from sourceID: UUID, to destinationID: UUID) {
+        var reordered = sortedSteps
+        guard
+            sourceID != destinationID,
+            let sourceIndex = reordered.firstIndex(where: { $0.id == sourceID }),
+            let destinationIndex = reordered.firstIndex(where: { $0.id == destinationID })
+        else { return }
+
+        let source = reordered.remove(at: sourceIndex)
+        reordered.insert(source, at: destinationIndex)
+
+        for (index, step) in reordered.enumerated() {
+            step.sortOrder = index
+        }
+    }
+
     /// Next date on or after `date + 1 day` that hasn't been skipped.
     func nextNonSkippedDate(after date: Date, calendar: Calendar = .current) -> Date {
         var candidate = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: date)) ?? date
@@ -71,11 +90,13 @@ final class Routine {
 
 @Model
 final class RoutineStep {
+    static let defaultSymbolName = "checkmark.circle"
+
     var id: UUID = UUID()
     var title: String = ""
     var durationMinutes: Int = 5
     var sortOrder: Int = 0
-    var symbolName: String = "checkmark.circle"
+    var symbolName: String = RoutineStep.defaultSymbolName
     var requiresConfirmation: Bool = true
     var createdAt: Date = Date()
     var routine: Routine?
@@ -84,7 +105,7 @@ final class RoutineStep {
         title: String,
         durationMinutes: Int,
         sortOrder: Int,
-        symbolName: String,
+        symbolName: String = RoutineStep.defaultSymbolName,
         requiresConfirmation: Bool = true
     ) {
         self.title = title

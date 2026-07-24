@@ -26,6 +26,7 @@ enum Signal {
     static let upcoming = Color(hex: 0x3E6FF2)
     static let now = Color(hex: 0xF4C430)
     static let late = Color(hex: 0xE5484D)
+    static let complete = Color(hex: 0x2FBF71)
 }
 
 extension Color {

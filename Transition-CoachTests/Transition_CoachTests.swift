@@ -83,4 +83,16 @@ struct Transition_CoachTests {
             Issue.record("A delay beyond the buffer should make the target critical")
         }
     }
+
+    @Test func routineStepsCanBeReorderedAndKeepContiguousSortValues() {
+        let first = RoutineStep(title: "First", durationMinutes: 1, sortOrder: 0)
+        let second = RoutineStep(title: "Second", durationMinutes: 1, sortOrder: 1)
+        let third = RoutineStep(title: "Third", durationMinutes: 1, sortOrder: 2)
+        let routine = Routine(name: "Test", targetTime: Date(), steps: [first, second, third])
+
+        routine.moveStep(from: third.id, to: first.id)
+
+        #expect(routine.sortedSteps.map(\.id) == [third.id, first.id, second.id])
+        #expect(routine.sortedSteps.map(\.sortOrder) == [0, 1, 2])
+    }
 }

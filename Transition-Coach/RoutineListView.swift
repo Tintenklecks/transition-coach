@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import UniformTypeIdentifiers
 
 // MARK: - Routines list
 
@@ -198,6 +199,7 @@ struct RoutineEditorView: View {
     @Environment(\.dismiss) private var dismiss
     @Bindable var routine: Routine
     @State private var notificationError = false
+    @State private var draggedStepID: UUID?
 
     var body: some View {
         ScrollView {
@@ -224,9 +226,16 @@ struct RoutineEditorView: View {
                     Text("Steps")
                         .signalEyebrow()
                     Spacer()
-                    Text("\(routine.steps.count) total")
-                        .font(SignalFont.grotesk(13, .semibold))
-                        .foregroundStyle(Signal.accent)
+                    VStack(alignment: .trailing, spacing: 2) {
+                        Text("\(routine.steps.count) total")
+                            .font(SignalFont.grotesk(13, .semibold))
+                            .foregroundStyle(Signal.accent)
+                        if routine.steps.count > 1 {
+                            Text("Drag to reorder")
+                                .font(SignalFont.grotesk(11))
+                                .foregroundStyle(Signal.textSecondary.opacity(0.7))
+                        }
+                    }
                 }
                 .padding(.top, 26)
 
@@ -358,7 +367,24 @@ struct RoutineEditorView: View {
         SignalCard {
             let steps = routine.sortedSteps
             ForEach(Array(steps.enumerated()), id: \.element.id) { index, step in
-                RoutineStepEditorRow(step: step) { deleteStep(step) }
+                RoutineStepEditorRow(
+                    step: step,
+                    canMoveUp: index > 0,
+                    canMoveDown: index < steps.count - 1,
+                    dragBegan: { draggedStepID = step.id },
+                    moveUp: { moveStep(step, by: -1) },
+                    moveDown: { moveStep(step, by: 1) },
+                    deleteAction: { deleteStep(step) }
+                )
+                .opacity(draggedStepID == step.id ? 0.58 : 1)
+                .onDrop(
+                    of: [UTType.text],
+                    delegate: RoutineStepDropDelegate(
+                        destinationID: step.id,
+                        draggedStepID: $draggedStepID,
+                        moveAction: moveStep
+                    )
+                )
 
                 if index < steps.count - 1 {
                     SignalHairline()
@@ -388,7 +414,7 @@ struct RoutineEditorView: View {
             title: "New step",
             durationMinutes: 5,
             sortOrder: routine.steps.count,
-            symbolName: "checkmark.circle"
+            symbolName: RoutineStep.defaultSymbolName
         )
         routine.steps.append(step)
     }
@@ -403,18 +429,47 @@ struct RoutineEditorView: View {
             step.sortOrder = index
         }
     }
+
+    private func moveStep(from sourceID: UUID, to destinationID: UUID) {
+        routine.moveStep(from: sourceID, to: destinationID)
+    }
+
+    private func moveStep(_ step: RoutineStep, by offset: Int) {
+        let steps = routine.sortedSteps
+        guard
+            let sourceIndex = steps.firstIndex(where: { $0.id == step.id }),
+            steps.indices.contains(sourceIndex + offset)
+        else { return }
+
+        withAnimation(.snappy) {
+            routine.moveStep(from: step.id, to: steps[sourceIndex + offset].id)
+        }
+    }
 }
 
 private struct RoutineStepEditorRow: View {
     @Bindable var step: RoutineStep
+    let canMoveUp: Bool
+    let canMoveDown: Bool
+    let dragBegan: () -> Void
+    let moveUp: () -> Void
+    let moveDown: () -> Void
     let deleteAction: () -> Void
 
     var body: some View {
         HStack(spacing: 14) {
-            Image(systemName: step.symbolName)
-                .font(.system(size: 17))
-                .foregroundStyle(Signal.textPrimary)
-                .frame(width: 24)
+            Menu {
+                RoutineStepSymbolMenu(selection: $step.symbolName)
+            } label: {
+                Image(systemName: step.symbolName)
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(Signal.background)
+                    .frame(width: 34, height: 34)
+                    .background(Signal.accent, in: .circle)
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Icon for \(step.title)")
+            .accessibilityHint("Choose an SF Symbol for this step")
 
             TextField("Step", text: $step.title)
                 .font(SignalFont.grotesk(16, .medium))
@@ -428,11 +483,97 @@ private struct RoutineStepEditorRow: View {
                 diameter: 26,
                 valueWidth: 38
             )
+
+            Image(systemName: "line.3.horizontal")
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(Signal.textSecondary)
+                .frame(width: 28, height: 34)
+                .contentShape(.rect)
+                .onDrag {
+                    dragBegan()
+                    return NSItemProvider(object: step.id.uuidString as NSString)
+                }
+                .accessibilityLabel("Reorder \(step.title)")
+                .accessibilityHint("Drag to move this step")
+                .accessibilityAction(named: "Move up", moveUp)
+                .accessibilityAction(named: "Move down", moveDown)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 14)
         .contextMenu {
+            Button("Move up", systemImage: "arrow.up", action: moveUp)
+                .disabled(!canMoveUp)
+            Button("Move down", systemImage: "arrow.down", action: moveDown)
+                .disabled(!canMoveDown)
             Button("Delete step", role: .destructive, action: deleteAction)
+        }
+    }
+}
+
+private struct RoutineStepDropDelegate: DropDelegate {
+    let destinationID: UUID
+    @Binding var draggedStepID: UUID?
+    let moveAction: (UUID, UUID) -> Void
+
+    func dropEntered(info: DropInfo) {
+        guard let draggedStepID, draggedStepID != destinationID else { return }
+        withAnimation(.snappy) {
+            moveAction(draggedStepID, destinationID)
+        }
+    }
+
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        DropProposal(operation: .move)
+    }
+
+    func performDrop(info: DropInfo) -> Bool {
+        draggedStepID = nil
+        return true
+    }
+}
+
+private struct RoutineStepSymbolMenu: View {
+    @Binding var selection: String
+
+    var body: some View {
+        symbolSection("Getting ready", symbols: [
+            ("drop.fill", "Bathroom"),
+            ("tshirt.fill", "Get dressed"),
+            ("shoe.fill", "Shoes"),
+            ("bed.double.fill", "Bed"),
+            ("cup.and.saucer.fill", "Drink")
+        ])
+        symbolSection("Travel", symbols: [
+            ("figure.walk", "Walk"),
+            ("car.fill", "Car"),
+            ("bus.fill", "Bus"),
+            ("tram.fill", "Tram"),
+            ("bicycle", "Bike"),
+            ("airplane", "Flight")
+        ])
+        symbolSection("Tasks", symbols: [
+            (RoutineStep.defaultSymbolName, "General"),
+            ("bag.fill", "Bag"),
+            ("laptopcomputer", "Computer"),
+            ("fork.knife", "Food"),
+            ("pills.fill", "Medication"),
+            ("doc.text.fill", "Documents")
+        ])
+    }
+
+    @ViewBuilder
+    private func symbolSection(
+        _ title: String,
+        symbols: [(name: String, label: String)]
+    ) -> some View {
+        Section(title) {
+            ForEach(symbols, id: \.name) { symbol in
+                Button {
+                    selection = symbol.name
+                } label: {
+                    Label(symbol.label, systemImage: symbol.name)
+                }
+            }
         }
     }
 }

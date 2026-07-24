@@ -96,7 +96,7 @@ private struct RoutineTodayContent: View {
                         nextDate: nextRoutineDate,
                         dayLabel: dayLabel,
                         isToday: isRenderingToday,
-                        completedCount: completedIDs.count,
+                        completedIDs: completedIDs,
                         canSpendBuffer: sessionStore.spentBufferMinutes < routine.bufferMinutes,
                         extensionMinutes: Self.extensionMinutes,
                         primaryAction: {
@@ -262,7 +262,7 @@ private struct LiveStepScreen: View {
     let nextDate: Date
     let dayLabel: String
     let isToday: Bool
-    let completedCount: Int
+    let completedIDs: Set<UUID>
     let canSpendBuffer: Bool
     let extensionMinutes: Int
     let primaryAction: () -> Void
@@ -309,9 +309,22 @@ private struct LiveStepScreen: View {
                     .padding(.top, 18)
             }
 
+            if urgency != .completed {
+                HStack(spacing: 8) {
+                    Image(systemName: "hourglass")
+                        .font(.system(size: 13, weight: .semibold))
+                    Text(routineEndText)
+                        .font(SignalFont.mono(13, .semibold))
+                        .contentTransition(.numericText())
+                }
+                .foregroundStyle(style.ink.opacity(urgency == .critical ? 0.82 : 0.68))
+                .padding(.top, 14)
+                .accessibilityLabel(routineEndAccessibilityLabel)
+            }
+
             Spacer(minLength: 24)
 
-            HStack(alignment: .firstTextBaseline, spacing: 10) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text(timerText)
                     .font(SignalFont.mono(56, .bold))
                     .foregroundStyle(style.ink)
@@ -319,7 +332,6 @@ private struct LiveStepScreen: View {
                     // A long overrun renders as H:MM:SS, which is too wide at 56pt.
                     .lineLimit(1)
                     .minimumScaleFactor(0.45)
-                    .layoutPriority(1)
                 Text(timerCaption)
                     .font(SignalFont.grotesk(14, .medium))
                     .foregroundStyle(style.ink.opacity(urgency == .critical ? 0.75 : 0.6))
@@ -339,21 +351,25 @@ private struct LiveStepScreen: View {
 
             secondaryLine
                 .padding(.top, 14)
-
-            if urgency != .critical, !schedule.steps.isEmpty {
-                SignalStepPips(
-                    total: schedule.steps.count,
-                    completed: min(completedCount, schedule.steps.count),
-                    ink: style.ink
-                )
-                .frame(maxWidth: .infinity)
-                .padding(.top, 20)
-            }
         }
-        .padding(.horizontal, 28)
+        .padding(.leading, 28)
+        .padding(.trailing, schedule.steps.isEmpty ? 28 : 84)
         .padding(.top, 24)
         .padding(.bottom, 44)
         .frame(maxWidth: 560)
+        .overlay(alignment: .trailing) {
+            if !schedule.steps.isEmpty {
+                LiveStepProgressRail(
+                    steps: schedule.steps,
+                    activeStepID: activeStep?.id,
+                    completedIDs: completedIDs,
+                    ink: style.ink,
+                    background: style.background
+                )
+                .padding(.trailing, 20)
+                .padding(.vertical, 74)
+            }
+        }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(style.background.ignoresSafeArea())
         .animation(.easeInOut(duration: 0.35), value: urgency)
@@ -474,6 +490,20 @@ private struct LiveStepScreen: View {
         }
     }
 
+    private var routineEndText: String {
+        if now <= schedule.plannedFinishDate {
+            return "\(clock(from: now, to: schedule.plannedFinishDate)) until routine end"
+        }
+        return "+\(clock(from: schedule.plannedFinishDate, to: now)) past planned end"
+    }
+
+    private var routineEndAccessibilityLabel: String {
+        if now <= schedule.plannedFinishDate {
+            return "Time until routine end: \(clock(from: now, to: schedule.plannedFinishDate))"
+        }
+        return "Past planned routine end by \(clock(from: schedule.plannedFinishDate, to: now))"
+    }
+
     @ViewBuilder
     private var secondaryLine: some View {
         if urgency == .critical {
@@ -543,6 +573,116 @@ private struct LiveStepScreen: View {
 
     private func clock(from start: Date, to end: Date) -> String {
         SignalClock.text(from: start, to: end)
+    }
+}
+
+private struct LiveStepProgressRail: View {
+    let steps: [ScheduledStep]
+    let activeStepID: UUID?
+    let completedIDs: Set<UUID>
+    let ink: Color
+    let background: Color
+
+    var body: some View {
+        ScrollViewReader { proxy in
+            ScrollView(.vertical) {
+                VStack(spacing: 10) {
+                    ForEach(Array(steps.enumerated()), id: \.element.id) { index, item in
+                        let isActive = item.id == activeStepID
+                        let isCompleted = completedIDs.contains(item.id)
+
+                        LiveStepProgressIcon(
+                            symbolName: item.step.symbolName,
+                            isActive: isActive,
+                            isCompleted: isCompleted,
+                            ink: ink,
+                            background: background
+                        )
+                            .id(item.id)
+                            .accessibilityLabel(
+                                "Step \(index + 1), \(item.step.title), \(stateLabel(isActive: isActive, isCompleted: isCompleted))"
+                            )
+                    }
+                }
+                .padding(.vertical, 8)
+                .frame(maxWidth: .infinity)
+            }
+            .scrollIndicators(.hidden)
+            .frame(width: 52)
+            .frame(maxHeight: 360)
+            .onChange(of: activeStepID, initial: true) { _, newValue in
+                guard let target = newValue ?? steps.last?.id else { return }
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    proxy.scrollTo(target, anchor: .center)
+                }
+            }
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Routine progress")
+    }
+
+    private func stateLabel(isActive: Bool, isCompleted: Bool) -> String {
+        if isActive { return "current" }
+        if isCompleted { return "completed" }
+        return "upcoming"
+    }
+}
+
+private struct LiveStepProgressIcon: View {
+    let symbolName: String
+    let isActive: Bool
+    let isCompleted: Bool
+    let ink: Color
+    let background: Color
+
+    var body: some View {
+        Image(systemName: symbolName)
+            .font(.system(
+                size: isActive ? 19 : 15,
+                weight: isActive ? .bold : .semibold
+            ))
+            .foregroundStyle(foreground)
+            .frame(width: diameter, height: diameter)
+            .background {
+                Circle()
+                    .fill(fill)
+                    .overlay {
+                        if !isActive && !isCompleted {
+                            Circle()
+                                .stroke(ink.opacity(0.26), lineWidth: 1)
+                        }
+                    }
+            }
+            .overlay(alignment: .bottomTrailing) {
+                if isCompleted && !isActive {
+                    Image(systemName: "checkmark")
+                        .font(.system(size: 7, weight: .black))
+                        .foregroundStyle(background)
+                        .frame(width: 13, height: 13)
+                        .background(Signal.complete, in: .circle)
+                }
+            }
+            .shadow(
+                color: isActive ? ink.opacity(0.22) : .clear,
+                radius: 8,
+                y: 2
+            )
+    }
+
+    private var diameter: CGFloat {
+        isActive ? 44 : 34
+    }
+
+    private var foreground: Color {
+        if isActive { return background }
+        if isCompleted { return Signal.complete }
+        return ink.opacity(0.46)
+    }
+
+    private var fill: Color {
+        if isActive { return ink }
+        if isCompleted { return ink.opacity(0.13) }
+        return .clear
     }
 }
 
